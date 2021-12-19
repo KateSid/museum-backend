@@ -1,0 +1,14 @@
+server:
+  port: 8084
+
+spring:
+  liquibase:
+    change-log: classpath:db/changelog/changelog-master.xml
+  jpa:
+    hibernate:
+      ddl-auto: none
+  datasource:
+    url: jdbc:postgresql://localhost:5433/museum
+    username: museum
+    password: museum
+    driverClassName: org.postgresql.Driver

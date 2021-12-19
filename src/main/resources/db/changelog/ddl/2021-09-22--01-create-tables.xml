@@ -1,0 +1,296 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet author="Sidorova_Ekaterina" id="2021-09-22-1-create-sequence-author">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sequenceExists sequenceName="author_id_seq"/>
+            </not>
+        </preConditions>
+        <createSequence sequenceName="author_id_seq"/>
+    </changeSet>
+
+    <changeSet author="Sidorova_Ekaterina" id="2021-09-22-2-create-table-author">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="author"/>
+            </not>
+        </preConditions>
+        <createTable tableName="author">
+            <column name="id" type="bigint" defaultValueSequenceNext="author_id_seq">
+                <constraints primaryKey="true" nullable="false" primaryKeyName="id_author_pkey"/>
+            </column>
+            <column name="first_name" type="VARCHAR(100)">
+            </column>
+            <column name="last_name" type="VARCHAR(100)">
+            </column>
+            <column name="full_name" type="VARCHAR(300)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="pseudonym" type="VARCHAR(100)">
+            </column>
+            <column name="date_of_birth" type="date">
+            </column>
+            <column name="date_of_death" type="date">
+            </column>
+            <column name="country" type="varchar(100)">
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Sidorova_Ekaterina" id="2021-09-22-3-create-sequence-showroom">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sequenceExists sequenceName="showroom_id_seq"/>
+            </not>
+        </preConditions>
+        <createSequence sequenceName="showroom_id_seq"/>
+    </changeSet>
+
+    <changeSet author="Sidorova_Ekaterina" id="2021-09-22-4-create-table-showroom">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="showroom"/>
+            </not>
+        </preConditions>
+        <createTable tableName="showroom">
+            <column name="id" type="int" defaultValueSequenceNext="showroom_id_seq">
+                <constraints primaryKey="true" nullable="false" primaryKeyName="id_showroom_pkey"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="floor" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="size" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Sidorova_Ekaterina" id="2021-09-22-5-create-sequence-exposure">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sequenceExists sequenceName="exposure_id_seq"/>
+            </not>
+        </preConditions>
+        <createSequence sequenceName="exposure_id_seq"/>
+    </changeSet>
+
+    <changeSet author="Sidorova_Ekaterina" id="2021-09-22-6-create-table-exposure">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="exposure"/>
+            </not>
+        </preConditions>
+        <createTable tableName="exposure">
+            <column name="id" type="int" defaultValueSequenceNext="exposure_id_seq">
+                <constraints primaryKey="true" nullable="false" primaryKeyName="id_exposure_pkey"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="start_date_time" type="timestamp with time zone">
+                <constraints nullable="false"/>
+            </column>
+            <column name="end_date_time" type="timestamp with time zone">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="showroom_id" type="int">
+                <constraints foreignKeyName="fk_showroom_id" references="showroom(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Sidorova_Ekaterina" id="2021-09-22-7-create-sequence-exhibit">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sequenceExists sequenceName="exhibit_id_seq"/>
+            </not>
+        </preConditions>
+        <createSequence sequenceName="exhibit_id_seq"/>
+    </changeSet>
+
+    <changeSet author="Sidorova_Ekaterina" id="2021-09-22-8-create-table-exhibit">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="exhibit"/>
+            </not>
+        </preConditions>
+        <createTable tableName="exhibit">
+            <column name="id" type="int" defaultValueSequenceNext="exhibit_id_seq">
+                <constraints primaryKey="true" nullable="false" primaryKeyName="id_exhibit_pkey"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="creation_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="info" type="jsonb">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Sidorova_Ekaterina" id="2021-09-22-9-create-sequence-employee">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sequenceExists sequenceName="employee_id_seq"/>
+            </not>
+        </preConditions>
+        <createSequence sequenceName="employee_id_seq"/>
+    </changeSet>
+
+    <changeSet author="Sidorova_Ekaterina" id="2021-09-22-10-create-table-employee">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="employee"/>
+            </not>
+        </preConditions>
+        <createTable tableName="employee">
+            <column name="id" type="int" defaultValueSequenceNext="employee_id_seq">
+                <constraints primaryKey="true" nullable="false" primaryKeyName="id_employee_pkey"/>
+            </column>
+            <column name="employee_number" type="VARCHAR(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="full_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="position" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Sidorova_Ekaterina" id="2021-09-22-11-create-table-author_exhibit">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="author_exhibit"/>
+            </not>
+        </preConditions>
+        <createTable tableName="author_exhibit">
+            <column name="author_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_author_author_id" references="author(id)"/>
+            </column>
+            <column name="exhibit_id" type="bigint">
+                <constraints nullable="true" foreignKeyName="fk_exhibit_exhibit_id" references="exhibit(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Sidorova_Ekaterina" id="2021-09-22-12-author_exhibit-primary-key">
+        <addPrimaryKey
+                columnNames="author_id, exhibit_id"
+                constraintName="author_exhibit_pkey"
+                schemaName="public"
+                tableName="author_exhibit"/>
+    </changeSet>
+
+    <changeSet author="Sidorova_Ekaterina" id="2021-09-22-13-create-table-exhibit_exposure">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="exhibit_exposure"/>
+            </not>
+        </preConditions>
+        <createTable tableName="exhibit_exposure">
+            <column name="exposure_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_exposure_exhibit_exposure" references="exposure(id)"/>
+            </column>
+            <column name="exhibit_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_exhibit_exhibit_exposure" references="exhibit(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Sidorova_Ekaterina" id="2021-09-22-14-exhibit_exposure-primary-key">
+        <addPrimaryKey
+                columnNames="exposure_id, exhibit_id"
+                constraintName="exhibit_exposure_pkey"
+                schemaName="public"
+                tableName="exhibit_exposure"/>
+    </changeSet>
+
+    <changeSet author="Sidorova_Ekaterina" id="2021-09-22-15-create-sequence-restoration">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sequenceExists sequenceName="restoration_id_seq"/>
+            </not>
+        </preConditions>
+        <createSequence sequenceName="restoration_id_seq"/>
+    </changeSet>
+
+    <changeSet author="Sidorova_Ekaterina" id="2021-09-22-16-create-table-restoration">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="restoration"/>
+            </not>
+        </preConditions>
+        <createTable tableName="restoration">
+            <column name="id" type="bigint" defaultValueSequenceNext="restoration_id_seq">
+                <constraints primaryKey="true" nullable="false" primaryKeyName="id_restoration_pkey"/>
+            </column>
+            <column name="comment" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="start_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="end_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="exhibit_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_exhibit_restoration" references="exhibit(id)"/>
+            </column>
+            <column name="employee_id" type="integer">
+                <constraints nullable="false" foreignKeyName="fk_exhibit_employee" references="employee(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Sidorova_Ekaterina" id="2021-09-22-15-create-sequence-user">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sequenceExists sequenceName="user_id_seq"/>
+            </not>
+        </preConditions>
+        <createSequence sequenceName="user_id_seq"/>
+    </changeSet>
+
+    <changeSet author="Sidorova_Ekaterina" id="2021-09-22-16-create-table-user">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="usr"/>
+            </not>
+        </preConditions>
+        <createTable tableName="usr">
+            <column name="id" type="bigint" defaultValueSequenceNext="user_id_seq">
+                <constraints primaryKey="true" nullable="false" primaryKeyName="id_user_pkey"/>
+            </column>
+            <column name="login" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="password" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role" type="VARCHAR(15)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+<!--    <changeSet author="Sidorova_Ekaterina" id="2021-09-22-16-add-foreigh_keys">-->
+<!--        <addColumn tableName="">-->
+<!--            <column></column>-->
+<!--        </addColumn>-->
+<!--        <addForeignKeyConstraint baseTableName="" baseColumnNames="" constraintName="" referencedTableName=""-->
+<!--                                 referencedColumnNames=""-->
+<!--    </changeSet>-->
+</databaseChangeLog>

@@ -1,0 +1,15 @@
+#version: "1.29"
+
+services:
+  museum-db:
+    image: postgres:12.3
+    expose:
+      - 5433
+    ports:
+      - 5433:5432
+    stdin_open: true
+    tty: true
+    environment:
+      - POSTGRES_DB=museum
+      - POSTGRES_USER=museum
+      - POSTGRES_PASSWORD=museum
